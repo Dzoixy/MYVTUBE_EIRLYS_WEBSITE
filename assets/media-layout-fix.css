@@ -1,0 +1,130 @@
+/* EIRLYS MEDIA FIX · 2026-10-27
+   Loaded after assets/styles.css. No changes to your original monochrome theme.
+*/
+/* Correct a square/tall video frame: its 16:9 video was centered with black bands. */
+.video-panel .media-video,
+.gallery-grid .media-video,
+.gallery-item .media-video {
+  position: relative !important;
+  aspect-ratio: 16 / 9 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  background: #111 !important;
+}
+.video-panel .media-video > video,
+.gallery-grid .media-video > video,
+.gallery-item .media-video > video {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: contain !important;  /* do not crop the character */
+  position: absolute !important;
+  inset: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+/* Keep placeholder centered if the clip has not been supplied. */
+.video-panel .media-video > .empty-media,
+.gallery-grid .media-video > .empty-media {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+/* Studio screenshot and gallery screenshots fit the box without cropping labels. */
+.studio-visual .wide-media,
+.gallery-grid .media-img {
+  position: relative !important;
+  aspect-ratio: 16 / 9 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.studio-visual .wide-media > img,
+.gallery-grid .media-img > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: contain !important;
+}
+.studio-visual .wide-media > .empty-media,
+.gallery-grid .media-img > .empty-media {
+  position: absolute !important;
+  inset: 0 !important;
+}
+
+/* FEATURED VIDEO · LARGE FILL MODE (default)
+   Expand the right-hand video card to match the Project Overview paper.
+   Video is cropped symmetrically, not distorted. Users can switch to Fit.
+*/
+@media (min-width: 901px) {
+  .about-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    align-items: stretch !important;
+  }
+  .about-layout > .about-text,
+  .about-layout > .video-panel {
+    min-width: 0 !important;
+    align-self: stretch !important;
+  }
+  .about-layout > .video-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+  .about-layout > .video-panel > .media-video {
+    flex: 1 1 auto !important;
+    aspect-ratio: auto !important;
+    height: auto !important;
+    min-height: 440px !important;
+  }
+  .about-layout > .video-panel > .media-video > video {
+    aspect-ratio: auto !important;
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+  }
+  .about-layout > .video-panel.show-full-video > .media-video > video {
+    object-fit: contain !important;
+  }
+}
+/* Keep widescreen video uncropped on smaller screens. */
+@media (max-width: 900px) {
+  .about-layout > .video-panel {width:100% !important; align-self:stretch !important;}
+  .about-layout > .video-panel > .media-video {aspect-ratio:16 / 9 !important; height:auto !important; min-height:0 !important;}
+  .about-layout > .video-panel > .media-video > video {object-fit:contain !important; aspect-ratio:16 / 9 !important;}
+}
+/* Subtle switch: fill the featured card, or display every pixel of the clip. */
+.about-layout .video-caption {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 8px 12px !important;
+}
+.about-layout .video-caption .media-fit-toggle {
+  margin-left: auto;
+  padding: 6px 9px;
+  background: #fff;
+  color: #181818;
+  border: 1px solid #d6d6d6;
+  border-radius: 0;
+  font: 600 10px/1.4 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .04em;
+  cursor: pointer;
+}
+.about-layout .video-caption .media-fit-toggle:hover,
+.about-layout .video-caption .media-fit-toggle:focus-visible {
+  color: #fff;
+  background: #181818;
+  outline-offset: 2px;
+}
